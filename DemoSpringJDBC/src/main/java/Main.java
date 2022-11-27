@@ -14,10 +14,17 @@ public class Main {
         JdbcTemplate template= new JdbcTemplate(dataSource);
         //template.update("UPDATE product SET description=? WHERE id=?","quá chất nhé",12);// chu thuong nah. truy van truc tiep vs csdl
 
-        List<String> a = template.query("SELECT * FROM category", (rs, i) -> {
-            return rs.getString("name");
-        });
+//        List<String> a = template.query("SELECT * FROM category", (rs, i) -> {
+//            return rs.getString("name");
+//        });
+//
+//        a.forEach( v -> System.out.println(v));
 
-        a.forEach( v -> System.out.println(v));
+        List<String> b = template.query("SELECT * FROM category where name LIKE CONCAT('%',?,'%')",
+                                                (rs, i) -> {return rs.getString("name");},
+                                                "máy"
+                                                );
+
+        b.forEach( v -> System.out.println(v));
     }
 }
